@@ -55,12 +55,14 @@ public class TaskDaoTest {
         Project project = LiveDataTestUtil.getValue(this.mDatabase.mProjectDao().getProject(PROJECT_ID));
         assertTrue(project.getName().equals(PROJECT_DEMO.getName()) && project.getId() == PROJECT_ID);
     }
+
     @Test
     public void getTaskWhenNoTaskInserted() throws InterruptedException{
         // TEST
         List<Task> tasks = LiveDataTestUtil.getValue(this.mDatabase.mTaskDao().getAllTasks());
         assertTrue(tasks.isEmpty());
     }
+
     @Test
     public void insertAndGetTasks() throws InterruptedException{
         // BEFORE Adding demo project and demo task
@@ -70,6 +72,7 @@ public class TaskDaoTest {
         List<Task> tasks = LiveDataTestUtil.getValue(this.mDatabase.mTaskDao().getTask(PROJECT_ID));
         assertTrue(tasks.size() == 1);
     }
+
     @Test
     public void insertAndUpdateTask() throws InterruptedException{
         // BEFORE : Adding demo project & demo task. Next, get the task updated
@@ -78,10 +81,12 @@ public class TaskDaoTest {
         List<Task> tasks = LiveDataTestUtil.getValue(this.mDatabase.mTaskDao().getAllTasks());
         Task task1 = tasks.get(0);
         task1.setName("réparer porte");
+        // TEST
         this.mDatabase.mTaskDao().updateTask(task1);
         assertEquals("réparer porte",tasks.get(0).getName());
 
     }
+
     @Test
     public void deleteTask() throws InterruptedException{
         // BEFORE : Adding demo project & demo task. Next, get the task deleted
@@ -89,7 +94,7 @@ public class TaskDaoTest {
         this.mDatabase.mTaskDao().insertTask(TASK_DEMO);
         Task task = LiveDataTestUtil.getValue(this.mDatabase.mTaskDao().getTask(PROJECT_ID)).get(0);
         this.mDatabase.mTaskDao().deleteTask(task.getId());
-
+        // TEST
         List<Task> tasks = LiveDataTestUtil.getValue(this.mDatabase.mTaskDao().getTask(PROJECT_ID));
         assertTrue(tasks.isEmpty());
     }
