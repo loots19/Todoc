@@ -15,20 +15,13 @@ public interface TaskDao {
 
     /**
      *
-     * @param taskId
-     * @return one task
-     */
-    @Query("SELECT * FROM Task WHERE id = :taskId")
-    LiveData<List<Task>> getTask(long taskId);
-
-    /**
-     *
-     * @return all Tasks
+     * @return list of task
      */
     @Query("SELECT * FROM Task")
-    LiveData<List<Task>> getAllTasks();
+    LiveData<List<Task>> getTasks();
 
-    /**
+
+    /**create
      * insert
      * @param task
      * @return

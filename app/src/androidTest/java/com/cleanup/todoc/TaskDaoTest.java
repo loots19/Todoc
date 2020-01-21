@@ -49,17 +49,16 @@ public class TaskDaoTest {
     }
     @Test
     public void insertAndGetProject() throws InterruptedException{
-        // BEFORE : Adding a new project
-        this.mDatabase.mProjectDao().createProject(PROJECT_DEMO);
         // TEST
-        Project project = LiveDataTestUtil.getValue(this.mDatabase.mProjectDao().getProject(PROJECT_ID));
-        assertTrue(project.getName().equals(PROJECT_DEMO.getName()) && project.getId() == PROJECT_ID);
+        List<Project> project =  LiveDataTestUtil.getValue(this.mDatabase.mProjectDao().getProjects());
+        this.mDatabase.mProjectDao().createProject(PROJECT_DEMO);
+        assertEquals(project.size(),0);
     }
 
     @Test
     public void getTaskWhenNoTaskInserted() throws InterruptedException{
         // TEST
-        List<Task> tasks = LiveDataTestUtil.getValue(this.mDatabase.mTaskDao().getAllTasks());
+        List<Task> tasks = LiveDataTestUtil.getValue(this.mDatabase.mTaskDao().getTasks());
         assertTrue(tasks.isEmpty());
     }
 
@@ -69,7 +68,7 @@ public class TaskDaoTest {
         this.mDatabase.mProjectDao().createProject(PROJECT_DEMO);
         this.mDatabase.mTaskDao().insertTask(TASK_DEMO);
         // TEST
-        List<Task> tasks = LiveDataTestUtil.getValue(this.mDatabase.mTaskDao().getTask(PROJECT_ID));
+        List<Task> tasks = LiveDataTestUtil.getValue(this.mDatabase.mTaskDao().getTasks());
         assertTrue(tasks.size() == 1);
     }
 
@@ -78,7 +77,7 @@ public class TaskDaoTest {
         // BEFORE : Adding demo project & demo task. Next, get the task updated
         this.mDatabase.mProjectDao().createProject(PROJECT_DEMO);
         this.mDatabase.mTaskDao().insertTask(TASK_DEMO);
-        List<Task> tasks = LiveDataTestUtil.getValue(this.mDatabase.mTaskDao().getAllTasks());
+        List<Task> tasks = LiveDataTestUtil.getValue(this.mDatabase.mTaskDao().getTasks());
         Task task1 = tasks.get(0);
         task1.setName("réparer porte");
         // TEST
@@ -92,10 +91,10 @@ public class TaskDaoTest {
         // BEFORE : Adding demo project & demo task. Next, get the task deleted
         this.mDatabase.mProjectDao().createProject(PROJECT_DEMO);
         this.mDatabase.mTaskDao().insertTask(TASK_DEMO);
-        Task task = LiveDataTestUtil.getValue(this.mDatabase.mTaskDao().getTask(PROJECT_ID)).get(0);
+        Task task = LiveDataTestUtil.getValue(this.mDatabase.mTaskDao().getTasks()).get(0);
         this.mDatabase.mTaskDao().deleteTask(task.getId());
         // TEST
-        List<Task> tasks = LiveDataTestUtil.getValue(this.mDatabase.mTaskDao().getTask(PROJECT_ID));
+        List<Task> tasks = LiveDataTestUtil.getValue(this.mDatabase.mTaskDao().getTasks());
         assertTrue(tasks.isEmpty());
     }
 

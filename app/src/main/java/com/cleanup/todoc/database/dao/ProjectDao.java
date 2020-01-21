@@ -22,19 +22,5 @@ public interface ProjectDao {
     @Query("SELECT * FROM project")
     LiveData<List<Project>> getProjects();
 
-    /**
-     *
-     * @param projectId
-     * @return one project
-     */
-    @Query("SELECT * FROM Project WHERE id = :projectId")
-    LiveData<Project> getProject(long projectId);
 
-    /**
-     *
-     * @param project
-     * @return
-     */
-    @Insert
-    long insertProject(Project project);
 }

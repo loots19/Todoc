@@ -46,14 +46,16 @@ public class Task {
      */
     private long creationTimestamp;
 
+
     /**
      * Instantiates a new Task.
      *
-     * @param id                the unique identifier of the task to set
+    // * @param               the unique identifier of the task to set
      * @param projectId         the unique identifier of the project associated to the task to set
      * @param name              the name of the task to set
      * @param creationTimestamp the timestamp when the task has been created to set
      */
+
     @Ignore
     @VisibleForTesting
     public Task(long id, long projectId, @NonNull String name, long creationTimestamp) {
@@ -68,6 +70,7 @@ public class Task {
         this.creationTimestamp = creationTimestamp;
 
     }
+
 
     /**
      * Returns the unique identifier of the task.
@@ -92,7 +95,7 @@ public class Task {
      *
      * @param projectId the unique identifier of the project associated to the task to set
      */
-    private void setProjectId(long projectId) {
+    public void setProjectId(long projectId) {
         this.projectId = projectId;
     }
 
@@ -134,8 +137,12 @@ public class Task {
      *
      * @param creationTimestamp the timestamp when the task has been created to set
      */
-    private void setCreationTimestamp(long creationTimestamp) {
+    public void setCreationTimestamp(long creationTimestamp) {
         this.creationTimestamp = creationTimestamp;
+    }
+    @Nullable
+    public Project getProject() {
+        return Project.getProjectById(projectId);
     }
 
     /**

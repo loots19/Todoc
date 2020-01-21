@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cleanup.todoc.database.dao.TodocDatabase;
+import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.ui.MainActivity;
 
 import org.junit.Rule;
@@ -30,11 +32,13 @@ import static org.junit.Assert.assertThat;
  */
 @RunWith(AndroidJUnit4.class)
 public class MainActivityInstrumentedTest {
+
+
     @Rule
     public ActivityTestRule<MainActivity> rule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void addAndRemoveTask() {
+    public void addAndRemoveTask()  {
         MainActivity activity = rule.getActivity();
         TextView lblNoTask = activity.findViewById(R.id.lbl_no_task);
         RecyclerView listTasks = activity.findViewById(R.id.list_tasks);
