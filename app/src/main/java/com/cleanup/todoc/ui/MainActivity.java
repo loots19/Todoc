@@ -1,7 +1,6 @@
 package com.cleanup.todoc.ui;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -26,6 +25,7 @@ import com.cleanup.todoc.injection.Injection;
 import com.cleanup.todoc.injection.ViewModelFactory;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      * The sort method to be used to display tasks
      */
     @NonNull
-    private SortMethod sortMethod = SortMethod.NONE;
+    private Utils.SortMethod sortMethod = Utils.SortMethod.NONE;
 
     /**
      * Dialog to create a new task
@@ -123,15 +123,14 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        Log.e("test", "open");
         if (id == R.id.filter_alphabetical) {
-            sortMethod = SortMethod.ALPHABETICAL;
+            sortMethod = Utils.SortMethod.ALPHABETICAL;
         } else if (id == R.id.filter_alphabetical_inverted) {
-            sortMethod = SortMethod.ALPHABETICAL_INVERTED;
+            sortMethod = Utils.SortMethod.ALPHABETICAL_INVERTED;
         } else if (id == R.id.filter_oldest_first) {
-            sortMethod = SortMethod.OLD_FIRST;
+            sortMethod = Utils.SortMethod.OLD_FIRST;
         } else if (id == R.id.filter_recent_first) {
-            sortMethod = SortMethod.RECENT_FIRST;
+            sortMethod = Utils.SortMethod.RECENT_FIRST;
         }
 
         updateTasks(tasks);
@@ -141,10 +140,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     @Override
     public void onDeleteTask(Task task) {
         this.deleteTask(task);
-        Log.e("test", "delete task");
         updateTasks(tasks);
-        Log.e("test", "updated");
-
     }
 
     /**
@@ -170,10 +166,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             }
             // If both project and name of the task have been set
             else if (taskProject != null) {
-                // TODO: Replace this by id of persisted task
-                //long id = (long) (Math.random() * 50000);
-
-
                 @SuppressLint("VisibleForTests") Task task = new Task(
                         taskProject.getId(),
                         taskName,
@@ -233,10 +225,10 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                     break;
 
             }
+
             adapter.updateTasks(tasks);
         }
     }
-
 
     /**
      * Returns the dialog allowing the user to create a new task.
@@ -273,8 +265,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                     @Override
                     public void onClick(View view) {
                         onPositiveButtonClick(dialog);
-                        Log.e("test", "add task");
-
                     }
                 });
             }
@@ -292,32 +282,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         if (dialogSpinner != null) {
             dialogSpinner.setAdapter(adapter);
         }
-    }
-
-    /**
-     * List of all possible sort methods for task
-     */
-    private enum SortMethod {
-        /**
-         * Sort alphabetical by name
-         */
-        ALPHABETICAL,
-        /**
-         * Inverted sort alphabetical by name
-         */
-        ALPHABETICAL_INVERTED,
-        /**
-         * Lastly created first
-         */
-        RECENT_FIRST,
-        /**
-         * First created first
-         */
-        OLD_FIRST,
-        /**
-         * No sort
-         */
-        NONE
     }
 
     // Configuring ViewModel
@@ -352,6 +316,5 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         this.mTaskViewModel.createTask(task);
         this.updateTasks(tasks);
     }
-
 
 }

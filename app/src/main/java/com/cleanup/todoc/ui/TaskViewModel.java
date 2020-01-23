@@ -59,7 +59,6 @@ public class TaskViewModel extends ViewModel {
         });
 
     }
-    // not use
     public void updateTask(Task task){
         mExecutor.execute(()->{
             mTaskDataRepository.updateTask(task);
