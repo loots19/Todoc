@@ -10,13 +10,25 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
-
     buildTypes {
-
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    signingConfigs {
+        release {
+            storeFile file(project.file("todoc.jks"))
+            storePassword "reloots1982"
+            keyAlias "loots"
+            keyPassword "reloots01"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     lintOptions {
