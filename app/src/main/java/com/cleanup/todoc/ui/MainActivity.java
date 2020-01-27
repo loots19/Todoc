@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         this.getTasks();
 
         findViewById(R.id.fab_add_task).setOnClickListener(view -> showAddTaskDialog());
+        Log.e("test","test");
     }
 
     @Override
